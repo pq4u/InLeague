@@ -1,0 +1,47 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isEdit ? 'Edytuj' : 'Dodaj' }} kierowcę</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="driverForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Imię</mat-label>
+            <input matInput formControlName="firstName">
+            @if (driverForm.get('firstName')?.hasError('required')) {
+              <mat-error>Wymagane</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Nazwisko</mat-label>
+            <input matInput formControlName="lastName">
+            @if (driverForm.get('lastName')?.hasError('required')) {
+              <mat-error>Wymagane</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Numer startowy</mat-label>
+            <input matInput formControlName="racingNumber">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Data urodzenia</mat-label>
+            <input matInput type="date" formControlName="dateOfBirth">
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button mat-button type="button" routerLink="/admin/drivers">Anuluj</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="driverForm.invalid || isLoading">
+            {{ isLoading ? 'Zapisywanie...' : 'Zapisz' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

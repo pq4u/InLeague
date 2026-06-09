@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="header">
+    <h1>Kierowcy</h1>
+    @if (auth.isAdmin()) {
+      <button mat-raised-button color="primary" routerLink="/admin/drivers/new">
+        <mat-icon>add</mat-icon> Dodaj kierowcę
+      </button>
+    }
+  </div>
+
+  <mat-table [dataSource]="drivers" class="mat-elevation-z2">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Imię i nazwisko</mat-header-cell>
+      <mat-cell *matCellDef="let driver">{{ driver.fullName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+      <mat-header-cell *matHeaderCellDef>Nr startowy</mat-header-cell>
+      <mat-cell *matCellDef="let driver">{{ driver.racingNumber || '-' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dob">
+      <mat-header-cell *matHeaderCellDef>Data urodzenia</mat-header-cell>
+      <mat-cell *matCellDef="let driver">{{ driver.dateOfBirth | date }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let driver">
+        @if (auth.isAdmin()) {
+          <button mat-icon-button color="primary" [routerLink]="['/admin/drivers', driver.id, 'edit']">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteDriver(driver.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        }
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  @if (drivers.length === 0) {
+    <div class="no-data">
+      Nie znaleziono kierowców.
+    </div>
+  }
+</div>

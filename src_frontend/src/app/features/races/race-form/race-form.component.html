@@ -1,0 +1,56 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isEdit ? 'Edytuj' : 'Dodaj' }} wyścig</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="raceForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nazwa wyścigu</mat-label>
+          <input matInput formControlName="name" placeholder="Runda 1 / Grand Prix">
+          @if (raceForm.get('name')?.hasError('required')) {
+            <mat-error>Nazwa jest wymagana</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Lokalizacja</mat-label>
+          <input matInput formControlName="location" placeholder="Nazwa toru">
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Data i czas wyścigu</mat-label>
+            <input matInput type="datetime-local" formControlName="raceDate">
+            @if (raceForm.get('raceDate')?.hasError('required')) {
+              <mat-error>Data jest wymagana</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Liczba okrążeń</mat-label>
+            <input matInput type="number" formControlName="numberOfLaps">
+            @if (raceForm.get('numberOfLaps')?.hasError('required')) {
+              <mat-error>Wymagane</mat-error>
+            }
+            @if (raceForm.get('numberOfLaps')?.hasError('min')) {
+              <mat-error>Min. 1</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Uwagi</mat-label>
+          <textarea matInput formControlName="notes" rows="3"></textarea>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-button type="button" (click)="onCancel()">Anuluj</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="raceForm.invalid || isLoading">
+            {{ isLoading ? 'Zapisywanie...' : 'Zapisz' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

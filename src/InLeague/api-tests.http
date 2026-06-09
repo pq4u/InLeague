@@ -1,0 +1,130 @@
+@baseUrl = http://localhost:5079
+
+# --- MANUAL STEP ---
+# 1. Run 'Login'
+# 2. Copy the 'token' from the response
+# 3. Paste it here:
+@authToken = YOUR_TOKEN_HERE
+
+# --- IDs (Update these after creating entities if you want to run specific tests) ---
+@leagueId = 00000000-0000-0000-0000-000000000000
+@driverId = 00000000-0000-0000-0000-000000000000
+@kartId = 00000000-0000-0000-0000-000000000000
+@raceId = 00000000-0000-0000-0000-000000000000
+@resultId = 00000000-0000-0000-0000-000000000000
+
+### 1. Auth: Register
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Password123!",
+  "firstName": "Test",
+  "lastName": "User"
+}
+
+### 2. Auth: Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Password123!"
+}
+
+### 3. Auth: Me (Verify Token)
+GET {{baseUrl}}/api/auth/me
+Authorization: Bearer {{authToken}}
+
+### ---------------------------------------------------------
+### LEAGUES
+### ---------------------------------------------------------
+
+### 4. Create League
+POST {{baseUrl}}/api/leagues
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Summer Championship 2026",
+  "description": "Annual summer karting league",
+  "startDate": "2026-06-01",
+  "endDate": "2026-08-31"
+}
+
+### 5. Get All Leagues
+GET {{baseUrl}}/api/leagues
+
+### 6. Get League By ID
+GET {{baseUrl}}/api/leagues/{{leagueId}}
+
+### ---------------------------------------------------------
+### DRIVERS
+### ---------------------------------------------------------
+
+### 7. Create Driver
+POST {{baseUrl}}/api/drivers
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "racingNumber": "44",
+  "dateOfBirth": "1990-05-15"
+}
+
+### 8. Get All Drivers
+GET {{baseUrl}}/api/drivers
+
+### ---------------------------------------------------------
+### KARTS
+### ---------------------------------------------------------
+
+### 9. Create Kart
+POST {{baseUrl}}/api/karts
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "number": "01",
+  "model": "Sodi RT8",
+  "category": "Adult"
+}
+
+### ---------------------------------------------------------
+### RACES
+### ---------------------------------------------------------
+
+### 10. Create Race
+POST {{baseUrl}}/api/leagues/{{leagueId}}/races
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Opening Grand Prix",
+  "location": "Warsaw Karting Center",
+  "raceDate": "2026-06-15T18:00:00",
+  "numberOfLaps": 15
+}
+
+### ---------------------------------------------------------
+### RACE RESULTS
+### ---------------------------------------------------------
+
+### 11. Create Race Result
+POST {{baseUrl}}/api/races/{{raceId}}/results
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "driverId": "{{driverId}}",
+  "kartId": "{{kartId}}",
+  "lapTimeMs": 45120,
+  "totalTimeMs": 676800,
+  "startingPosition": 1,
+  "finishingPosition": 1,
+  "lapsCompleted": 15,
+  "status": 0
+}

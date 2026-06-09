@@ -1,0 +1,51 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isEdit ? 'Edytuj' : 'Dodaj' }} ligę</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="leagueForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nazwa</mat-label>
+          <input matInput formControlName="name" placeholder="Sezon Letni 2024">
+          @if (leagueForm.get('name')?.hasError('required')) {
+            <mat-error>Nazwa jest wymagana</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Opis</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Data rozpoczęcia</mat-label>
+            <input matInput type="date" formControlName="startDate">
+            @if (leagueForm.get('startDate')?.hasError('required')) {
+              <mat-error>Data rozpoczęcia jest wymagana</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Data zakończenia</mat-label>
+            <input matInput type="date" formControlName="endDate">
+          </mat-form-field>
+        </div>
+
+        @if (isEdit) {
+          <div class="checkbox-container">
+            <mat-checkbox formControlName="isActive">Jest aktywna</mat-checkbox>
+          </div>
+        }
+
+        <div class="actions">
+          <button mat-button type="button" (click)="onCancel()">Anuluj</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="leagueForm.invalid || isLoading()">
+            {{ isLoading() ? 'Zapisywanie...' : 'Zapisz' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

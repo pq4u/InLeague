@@ -1,0 +1,14 @@
+**/.git
+**/.gitignore
+**/.vs
+**/.vscode
+**/.idea
+**/bin
+**/obj
+**/node_modules
+**/*.user
+**/*.suo
+**/dist
+**/.angular
+.env
+docker-compose.override.yml

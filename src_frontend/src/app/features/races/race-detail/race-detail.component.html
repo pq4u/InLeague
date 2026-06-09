@@ -1,0 +1,110 @@
+@if (race) {
+  <div class="container">
+    <div class="header-actions">
+      <button mat-icon-button [routerLink]="['/leagues', race.leagueId]">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>{{ race.name }}</h1>
+      <span class="spacer"></span>
+      @if (auth.isAdmin()) {
+        <div>
+          <button mat-button color="primary" [routerLink]="['/admin/leagues', race.leagueId, 'races', race.id, 'edit']">
+            <mat-icon>edit</mat-icon> Edytuj wyścig
+          </button>
+        </div>
+      }
+    </div>
+
+    <mat-card class="race-info-card">
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Data:</span>
+            <span class="value">{{ race.raceDate | date:'medium' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Lokalizacja:</span>
+            <span class="value">{{ race.location || 'Brak' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Okrążenia:</span>
+            <span class="value">{{ race.numberOfLaps }}</span>
+          </div>
+        </div>
+        @if (race.notes) {
+          <p class="notes">
+            <strong>Uwagi:</strong><br>
+            {{ race.notes }}
+          </p>
+        }
+      </mat-card-content>
+    </mat-card>
+
+    <div class="results-header">
+      <h2>Wyniki</h2>
+      @if (auth.isAdmin()) {
+        <button mat-raised-button color="primary" [routerLink]="['/admin/leagues', race.leagueId, 'races', race.id, 'results', 'new']">
+          <mat-icon>add</mat-icon> Dodaj wynik
+        </button>
+      }
+    </div>
+
+    @if (race.results && race.results.length > 0) {
+      <mat-table [dataSource]="race.results" class="mat-elevation-z2">
+        <ng-container matColumnDef="pos">
+          <mat-header-cell *matHeaderCellDef>Poz.</mat-header-cell>
+          <mat-cell *matCellDef="let result">{{ result.finishingPosition || 'DNF' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="driver">
+          <mat-header-cell *matHeaderCellDef>Kierowca</mat-header-cell>
+          <mat-cell *matCellDef="let result">{{ result.driverName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="kart">
+          <mat-header-cell *matHeaderCellDef>Gokart</mat-header-cell>
+          <mat-cell *matCellDef="let result">#{{ result.kartNumber }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="bestLap">
+          <mat-header-cell *matHeaderCellDef>Najlepsze okrążenie</mat-header-cell>
+          <mat-cell *matCellDef="let result">{{ result.lapTimeMs | raceTime }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalTime">
+          <mat-header-cell *matHeaderCellDef>Całkowity czas</mat-header-cell>
+          <mat-cell *matCellDef="let result">{{ result.totalTimeMs | raceTime }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+          <mat-cell *matCellDef="let result">
+            <span class="status-tag" [class]="result.status.toLowerCase()">{{ result.status }}</span>
+          </mat-cell>
+        </ng-container>
+
+        @if (auth.isAdmin()) {
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let result">
+               <button mat-icon-button color="warn" (click)="deleteResult(result.id)" matTooltip="Usuń wynik">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+        }
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    } @else {
+      <mat-card class="no-data-card">
+        <mat-card-content>Nie zarejestrowano jeszcze żadnych wyników dla tego wyścigu.</mat-card-content>
+      </mat-card>
+    }
+  </div>
+} @else {
+  <div class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+}

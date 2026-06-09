@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: karting_league_db
+    environment:
+      POSTGRES_DB: karting_league
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+#  api:
+#    build:
+#      context: ./src/InLeague/InLeague
+#      dockerfile: Dockerfile
+#    container_name: karting_league_api
+#    ports:
+#      - "5000:8080"
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=karting_league;Username=postgres;Password=postgres
+#      - Jwt__Key=ZMIEN_NA_DLUGI_LOSOWY_KLUCZ_MIN_32_ZNAKI_!!
+#      - Jwt__Issuer=KartingLeagueApi
+#      - Jwt__Audience=KartingLeagueFrontend
+#    depends_on:
+#      - db
+
+volumes:
+  postgres_data:

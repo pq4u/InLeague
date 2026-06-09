@@ -1,0 +1,41 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isEdit ? 'Edytuj gokart' : 'Dodaj nowy gokart' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="kartForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Numer gokarta</mat-label>
+          <input matInput formControlName="number" placeholder="np. 7" required>
+          @if (kartForm.get('number')?.hasError('required')) {
+            <mat-error>Numer jest wymagany</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Model</mat-label>
+          <input matInput formControlName="model" placeholder="np. Sodi GT5">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Kategoria</mat-label>
+          <input matInput formControlName="category" placeholder="np. Senior">
+        </mat-form-field>
+
+        @if (isEdit) {
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="isActive">Aktywny</mat-checkbox>
+          </div>
+        }
+
+        <div class="actions">
+          <button mat-button type="button" routerLink="/admin/karts">Anuluj</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="kartForm.invalid || isLoading">
+            {{ isLoading ? 'Zapisywanie...' : 'Zapisz' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

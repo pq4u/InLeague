@@ -1,0 +1,111 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Dodaj wynik wyścigu</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="resultForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Kierowca</mat-label>
+            <mat-select formControlName="driverId">
+              @for (driver of drivers; track driver.id) {
+                <mat-option [value]="driver.id">
+                  {{ driver.fullName }} (#{{ driver.racingNumber }})
+                </mat-option>
+              }
+            </mat-select>
+            @if (resultForm.get('driverId')?.hasError('required')) {
+              <mat-error>Kierowca jest wymagany</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Gokart</mat-label>
+            <mat-select formControlName="kartId">
+              @for (kart of karts; track kart.id) {
+                <mat-option [value]="kart.id">
+                  #{{ kart.number }} - {{ kart.model }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (resultForm.get('kartId')?.hasError('required')) {
+              <mat-error>Gokart jest wymagany</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <h3>Czas okrążenia (najlepszy)</h3>
+        <div class="time-row" formGroupName="lapTime">
+          <mat-form-field appearance="outline">
+            <mat-label>Min</mat-label>
+            <input matInput type="number" formControlName="minutes" min="0">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Sek</mat-label>
+            <input matInput type="number" formControlName="seconds" min="0" max="59">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Ms</mat-label>
+            <input matInput type="number" formControlName="millis" min="0" max="999">
+          </mat-form-field>
+        </div>
+
+        <h3>Całkowity czas</h3>
+        <div class="time-row" formGroupName="totalTime">
+          <mat-form-field appearance="outline">
+            <mat-label>Min</mat-label>
+            <input matInput type="number" formControlName="minutes" min="0">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Sek</mat-label>
+            <input matInput type="number" formControlName="seconds" min="0" max="59">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Ms</mat-label>
+            <input matInput type="number" formControlName="millis" min="0" max="999">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="third-width">
+            <mat-label>Poz. startowa</mat-label>
+            <input matInput type="number" formControlName="startingPosition" min="1">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="third-width">
+            <mat-label>Poz. końcowa</mat-label>
+            <input matInput type="number" formControlName="finishingPosition" min="1">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="third-width">
+            <mat-label>Ukończone okrążenia</mat-label>
+            <input matInput type="number" formControlName="lapsCompleted" min="0">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="Finished">Ukończono</mat-option>
+              <mat-option value="DNF">DNF</mat-option>
+              <mat-option value="DNS">DNS</mat-option>
+              <mat-option value="Disqualified">Zdyskwalifikowany</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Uwagi</mat-label>
+          <textarea matInput formControlName="notes" rows="2"></textarea>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-button type="button" (click)="onCancel()">Anuluj</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="resultForm.invalid || isLoading">
+            {{ isLoading ? 'Zapisywanie...' : 'Zapisz wynik' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

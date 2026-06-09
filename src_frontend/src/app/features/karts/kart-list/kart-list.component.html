@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="header">
+    <h1>Gokarty</h1>
+    @if (auth.isAdmin()) {
+      <button mat-raised-button color="primary" routerLink="/admin/karts/new">
+        <mat-icon>add</mat-icon> Dodaj gokart
+      </button>
+    }
+  </div>
+
+  <mat-table [dataSource]="karts" class="mat-elevation-z2">
+    <ng-container matColumnDef="number">
+      <mat-header-cell *matHeaderCellDef>Numer</mat-header-cell>
+      <mat-cell *matCellDef="let kart">#{{ kart.number }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef>Model</mat-header-cell>
+      <mat-cell *matCellDef="let kart">{{ kart.model || '-' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef>Kategoria</mat-header-cell>
+      <mat-cell *matCellDef="let kart">{{ kart.category || '-' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+      <mat-cell *matCellDef="let kart">
+        <span [class.active]="kart.isActive" [class.inactive]="!kart.isActive">
+          {{ kart.isActive ? 'Aktywny' : 'Nieaktywny' }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let kart">
+        @if (auth.isAdmin()) {
+          <button mat-icon-button color="primary" [routerLink]="['/admin/karts', kart.id, 'edit']">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteKart(kart.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        }
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  @if (karts.length === 0) {
+    <div class="no-data">
+      Nie znaleziono gokartów.
+    </div>
+  }
+</div>

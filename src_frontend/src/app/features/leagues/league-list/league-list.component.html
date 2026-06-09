@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="header">
+    <h1>Ligi</h1>
+    @if (auth.isAdmin()) {
+      <button mat-raised-button color="primary" routerLink="/admin/leagues/new">
+        <mat-icon>add</mat-icon> Dodaj ligę
+      </button>
+    }
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">Ładowanie...</div>
+  }
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+  
+  @if (!isLoading() && !error()) {
+    <mat-table [dataSource]="leagues()" class="mat-elevation-z2">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Nazwa </mat-header-cell>
+        <mat-cell *matCellDef="let league"> {{league.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef> Data rozpoczęcia </mat-header-cell>
+        <mat-cell *matCellDef="let league"> {{league.startDate | date}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef> Data zakończenia </mat-header-cell>
+        <mat-cell *matCellDef="let league"> {{league.endDate | date}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="raceCount">
+        <mat-header-cell *matHeaderCellDef> Wyścigi </mat-header-cell>
+        <mat-cell *matCellDef="let league"> {{league.raceCount}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let league"> 
+          <span [class.active]="league.isActive" [class.inactive]="!league.isActive">
+            {{league.isActive ? 'Aktywna' : 'Nieaktywna'}} 
+          </span>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Akcje </mat-header-cell>
+        <mat-cell *matCellDef="let league">
+          <button mat-icon-button color="primary" [routerLink]="['/leagues', league.id]" matTooltip="Szczegóły">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          @if (auth.isAdmin()) {
+            <button mat-icon-button color="accent" [routerLink]="['/admin/leagues', league.id, 'edit']" matTooltip="Edytuj">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteLeague(league.id)" matTooltip="Usuń">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    @if (leagues().length === 0) {
+      <div class="no-data">Nie znaleziono lig.</div>
+    }
+  }
+</div>

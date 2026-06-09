@@ -1,0 +1,40 @@
+<div class="auth-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Zaloguj się</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="przyklad@mail.com">
+          @if (loginForm.get('email')?.hasError('required')) {
+            <mat-error>Email jest wymagany</mat-error>
+          }
+          @if (loginForm.get('email')?.hasError('email')) {
+            <mat-error>Niepoprawny format email</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Hasło</mat-label>
+          <input matInput type="password" formControlName="password">
+          @if (loginForm.get('password')?.hasError('required')) {
+            <mat-error>Hasło jest wymagane</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading">
+            {{ isLoading ? 'Logowanie...' : 'Zaloguj się' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-footer>
+      <div class="footer-text">
+        Nie masz konta? <a routerLink="/register">Zarejestruj się tutaj</a>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>
