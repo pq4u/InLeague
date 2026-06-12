@@ -1,8 +1,4 @@
-using InLeague.Application.Features.RaceResults.DTOs;
-using InLeague.Domain.Features.Races.Enums;
-using Xunit;
 using FluentValidation.TestHelper;
-using System;
 
 namespace InLeague.Tests.Validators;
 

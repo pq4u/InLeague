@@ -1,7 +1,3 @@
-using InLeague.Application.Features.Karts.DTOs;
-using InLeague.Domain.Features.Karts;
-using System;
-
 namespace InLeague.Application.Features.Karts.Mappings;
 
 public static class KartMappingExtensions

@@ -1,11 +1,4 @@
-using InLeague.Application.Common.Interfaces;
-using InLeague.Application.Features.Karts.DTOs;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace InLeague.Tests.Services;
 

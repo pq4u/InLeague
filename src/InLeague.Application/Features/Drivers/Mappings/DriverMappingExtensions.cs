@@ -1,7 +1,3 @@
-using InLeague.Application.Features.Drivers.DTOs;
-using InLeague.Domain.Features.Drivers;
-using System;
-
 namespace InLeague.Application.Features.Drivers.Mappings;
 
 public static class DriverMappingExtensions

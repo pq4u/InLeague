@@ -1,8 +1,3 @@
-using InLeague.Application.Features.Drivers.DTOs;
-using InLeague.Application.Features.Karts.DTOs;
-using InLeague.Application.Features.Leagues.DTOs;
-using InLeague.Application.Features.Races.DTOs;
-using Xunit;
 using FluentValidation.TestHelper;
 
 namespace InLeague.Tests.Validators;

@@ -1,5 +1,3 @@
-using System;
-
 namespace InLeague.Application.Features.Leagues.DTOs;
 
 public class CreateLeagueDto

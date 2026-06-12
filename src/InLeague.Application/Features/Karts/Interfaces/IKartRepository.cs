@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace InLeague.Application.Features.Karts.Interfaces;
 
 public interface IKartRepository : IRepository<Kart>

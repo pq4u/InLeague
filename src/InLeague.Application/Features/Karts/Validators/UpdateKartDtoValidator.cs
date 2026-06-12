@@ -1,5 +1,4 @@
 using FluentValidation;
-using InLeague.Application.Features.Karts.DTOs;
 
 namespace InLeague.Application.Features.Karts.Validators;
 

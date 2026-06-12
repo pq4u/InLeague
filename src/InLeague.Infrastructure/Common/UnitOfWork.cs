@@ -1,16 +1,7 @@
-using InLeague.Application.Common.Interfaces;
 using InLeague.Data;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace InLeague.Infrastructure.Common;
 
-/// <summary>
-/// Implementacja Unit of Work. Wszystkie repozytoria wspoldziela ten sam
-/// ApplicationDbContext (scoped), wiec operacje sa atomowe w ramach jednego requestu.
-/// Wywolaj SaveChangesAsync() raz po zakonczeniu wszystkich operacji.
-/// </summary>
 public class UnitOfWork : IUnitOfWork
 {
     private readonly ApplicationDbContext _context;

@@ -1,10 +1,3 @@
-using InLeague.Application.Common.Interfaces;
-using InLeague.Application.Features.RaceResults.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace InLeague.Application.Features.RaceResults.Services;
 
 public class RaceResultService : IRaceResultService
@@ -43,7 +36,6 @@ public class RaceResultService : IRaceResultService
         await _uow.RaceResults.CreateAsync(result);
         await _uow.SaveChangesAsync();
 
-        // Fetch again to include related data for DTO mapping
         var finalResult = await _uow.RaceResults.GetByIdWithDetailsAsync(result.Id);
         return finalResult?.ToDto();
     }

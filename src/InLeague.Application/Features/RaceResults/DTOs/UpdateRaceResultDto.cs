@@ -1,6 +1,3 @@
-using System;
-using InLeague.Domain.Features.Races.Enums;
-
 namespace InLeague.Application.Features.RaceResults.DTOs;
 
 public class UpdateRaceResultDto

@@ -1,8 +1,3 @@
-using InLeague.Application.Features.Karts.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace InLeague.Application.Features.Karts.Services;
 
 public interface IKartService

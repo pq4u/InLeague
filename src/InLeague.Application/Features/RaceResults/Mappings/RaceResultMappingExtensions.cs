@@ -1,7 +1,3 @@
-using InLeague.Application.Features.RaceResults.DTOs;
-using InLeague.Domain.Features.Races;
-using System;
-
 namespace InLeague.Application.Features.RaceResults.Mappings;
 
 public static class RaceResultMappingExtensions

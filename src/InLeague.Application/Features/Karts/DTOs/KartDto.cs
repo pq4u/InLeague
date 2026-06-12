@@ -1,5 +1,3 @@
-using System;
-
 namespace InLeague.Application.Features.Karts.DTOs;
 
 public class KartDto

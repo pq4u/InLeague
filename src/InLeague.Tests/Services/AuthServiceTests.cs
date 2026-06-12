@@ -1,11 +1,5 @@
-using InLeague.Application.Common.Interfaces;
-using InLeague.Application.Features.Auth.DTOs;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace InLeague.Tests.Services;
 

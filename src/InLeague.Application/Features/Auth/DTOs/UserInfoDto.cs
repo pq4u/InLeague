@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace InLeague.Application.Features.Auth.DTOs;
 
 public class UserInfoDto

@@ -1,8 +1,3 @@
-using InLeague.Application.Features.Leagues.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace InLeague.Application.Features.Leagues.Services;
 
 public interface ILeagueService

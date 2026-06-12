@@ -4,6 +4,5 @@ global using InLeague.Domain.Features.Karts;
 global using InLeague.Domain.Features.Races;
 global using InLeague.Domain.Features.Races.Enums;
 global using InLeague.Domain.Features.Users;
-global using InLeague.Domain.Features.Users.Exceptions;
 global using System;
 global using System.Collections.Generic;

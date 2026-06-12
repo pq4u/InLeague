@@ -1,5 +1,3 @@
-using System;
-
 namespace InLeague.Application.Features.Drivers.DTOs;
 
 public class CreateDriverDto

@@ -1,9 +1,4 @@
 using InLeague.Data;
-using InLeague.Domain.Features.Races.Enums;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace InLeague.Infrastructure.Data;
 
@@ -21,11 +16,9 @@ public static class DataSeeder
 
         if (adminRole is null || userRole is null) return;
 
-        // Uzytkownicy
         var adminId = Guid.NewGuid();
         var userId  = Guid.NewGuid();
 
-        // Liga
         var leagueId = Guid.NewGuid();
         var league = new League
         {
@@ -40,7 +33,6 @@ public static class DataSeeder
 
         context.Leagues.Add(league);
 
-        // Zawodnicy (10 realnych polskich kierowców wyścigowych / kartingowych)
         var robertKubicaId = Guid.NewGuid();
         var karolBaszId = Guid.NewGuid();
         var kacperSztukaId = Guid.NewGuid();
@@ -68,7 +60,6 @@ public static class DataSeeder
 
         context.Drivers.AddRange(drivers);
 
-        // Uzytkownicy ze stałymi danymi logowania i powiązaniami z kierowcami
         var admin = new User
         {
             Id           = adminId,
@@ -96,7 +87,6 @@ public static class DataSeeder
 
         context.Users.AddRange(admin, regularUser);
 
-        // Przypisanie administratora do ligi (LeagueAdmin)
         var leagueAdmin = new LeagueAdmin
         {
             LeagueId = leagueId,
@@ -104,7 +94,6 @@ public static class DataSeeder
         };
         context.LeagueAdmins.Add(leagueAdmin);
 
-        // Gokarty (prawdziwe modele gokartów rentalowych i profesjonalnych)
         var karts = new List<Kart>
         {
             new() { Id = Guid.NewGuid(), Number = "K01", Model = "Sodi RT10", Category = "Senior", IsActive = true },
@@ -121,7 +110,6 @@ public static class DataSeeder
 
         context.Karts.AddRange(karts);
 
-        // Wyścigi na prawdziwych polskich torach
         var race1Id = Guid.NewGuid();
         var race2Id = Guid.NewGuid();
         var race3Id = Guid.NewGuid();
@@ -189,12 +177,6 @@ public static class DataSeeder
 
         context.Races.AddRange(races);
 
-        // Definicje wyników dla każdej rundy (kierowca -> pozycja ukończenia).
-        // Używamy z góry zaplanowanych pozycji ukończenia, aby wyniki były spójne i realistyczne.
-        // Pozycje startowe są celowo nieco przesunięte, aby zasymulować wyprzedzanie.
-        // DNF (Did Not Finish) i DNS (Did Not Start) urozmaicają wyniki.
-
-        // Runda 1: Poznań (laps: 20, baseLapTimeMs: 52000)
         var finishOrderRace1 = new List<(Guid DriverId, ResultStatus Status, int? FinishPos, int StartPos, int LapsCompleted)>
         {
             (karolBaszId, ResultStatus.Finished, 1, 3, 20),
@@ -206,10 +188,9 @@ public static class DataSeeder
             (romanBilinskiId, ResultStatus.Finished, 7, 8, 20),
             (gustawWisniewskiId, ResultStatus.Finished, 8, 7, 20),
             (mateuszKaprzykId, ResultStatus.Finished, 9, 9, 20),
-            (klaraKowalczykId, ResultStatus.DNF, null, 10, 11) // Engine failure on lap 11
+            (klaraKowalczykId, ResultStatus.DNF, null, 10, 11)
         };
 
-        // Runda 2: Słomczyn (laps: 22, baseLapTimeMs: 49500)
         var finishOrderRace2 = new List<(Guid DriverId, ResultStatus Status, int? FinishPos, int StartPos, int LapsCompleted)>
         {
             (robertKubicaId, ResultStatus.Finished, 1, 2, 22),
@@ -220,11 +201,10 @@ public static class DataSeeder
             (maciejGladyszId, ResultStatus.Finished, 6, 5, 22),
             (janPrzyrowskiId, ResultStatus.Finished, 7, 6, 22),
             (klaraKowalczykId, ResultStatus.Finished, 8, 10, 22),
-            (gustawWisniewskiId, ResultStatus.DNF, null, 8, 15), // Spin on lap 15
-            (mateuszKaprzykId, ResultStatus.DNS, null, 9, 0) // Travel issues
+            (gustawWisniewskiId, ResultStatus.DNF, null, 8, 15),
+            (mateuszKaprzykId, ResultStatus.DNS, null, 9, 0)
         };
 
-        // Runda 3: Bydgoszcz (laps: 25, baseLapTimeMs: 44000)
         var finishOrderRace3 = new List<(Guid DriverId, ResultStatus Status, int? FinishPos, int StartPos, int LapsCompleted)>
         {
             (tymoteuszKucharczykId, ResultStatus.Finished, 1, 2, 25),
@@ -239,7 +219,6 @@ public static class DataSeeder
             (klaraKowalczykId, ResultStatus.Finished, 10, 9, 25)
         };
 
-        // Runda 4: Wallrav (laps: 20, baseLapTimeMs: 47000)
         var finishOrderRace4 = new List<(Guid DriverId, ResultStatus Status, int? FinishPos, int StartPos, int LapsCompleted)>
         {
             (kacperSztukaId, ResultStatus.Finished, 1, 2, 20),
@@ -250,11 +229,10 @@ public static class DataSeeder
             (janPrzyrowskiId, ResultStatus.Finished, 6, 6, 20),
             (klaraKowalczykId, ResultStatus.Finished, 7, 10, 20),
             (gustawWisniewskiId, ResultStatus.Finished, 8, 9, 20),
-            (romanBilinskiId, ResultStatus.DNF, null, 7, 4), // Collision on lap 4
+            (romanBilinskiId, ResultStatus.DNF, null, 7, 4),
             (mateuszKaprzykId, ResultStatus.Finished, 10, 8, 20)
         };
 
-        // Runda 5: Pomorze (laps: 24, baseLapTimeMs: 46000)
         var finishOrderRace5 = new List<(Guid DriverId, ResultStatus Status, int? FinishPos, int StartPos, int LapsCompleted)>
         {
             (karolBaszId, ResultStatus.Finished, 1, 2, 24),
@@ -270,13 +248,11 @@ public static class DataSeeder
         };
 
         var raceResults = new List<RaceResult>();
-        var random = new Random(42); // Seedowany generator, aby wyniki były w 100% deterministyczne przy każdym seedowaniu
+        var random = new Random(42);
 
         void AddResultsForRace(Guid raceId, int totalLaps, long baseLapTimeMs, List<(Guid DriverId, ResultStatus Status, int? FinishPos, int StartPos, int LapsCompleted)> order)
         {
-            // Przypisanie gokartów do kierowców w tej rundzie (pomieszane)
             var shuffledKarts = new List<Kart>(karts);
-            // Proste tasowanie deterministyczne
             for (int i = shuffledKarts.Count - 1; i > 0; i--)
             {
                 int k = random.Next(i + 1);
@@ -300,11 +276,9 @@ public static class DataSeeder
                 }
                 else
                 {
-                    // Ustalenie najszybszego okrążenia na podstawie pozycji (najlepsi kierowcy jadą nieco szybciej)
                     int performanceBonus = entry.FinishPos.HasValue ? (10 - entry.FinishPos.Value) * 120 : 200;
                     lapTimeMs = baseLapTimeMs - performanceBonus + random.Next(-300, 300);
 
-                    // Średni czas okrążenia jest o ok. 0.8-1.5 sekundy gorszy od rekordu
                     long avgLapTimeMs = lapTimeMs + random.Next(800, 1500);
                     totalTimeMs = entry.LapsCompleted * avgLapTimeMs;
 

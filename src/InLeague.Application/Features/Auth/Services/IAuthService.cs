@@ -1,7 +1,3 @@
-using InLeague.Application.Features.Auth.DTOs;
-using System;
-using System.Threading.Tasks;
-
 namespace InLeague.Application.Features.Auth.Services;
 
 public interface IAuthService

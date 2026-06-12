@@ -1,12 +1,3 @@
-using InLeague.Application.Features.Leagues.DTOs;
-using InLeague.Application.Features.Races.DTOs;
-using InLeague.Application.Features.Races.Mappings;
-using InLeague.Domain.Features.Leagues;
-using InLeague.Domain.Features.Races;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace InLeague.Application.Features.Leagues.Mappings;
 
 public static class LeagueMappingExtensions

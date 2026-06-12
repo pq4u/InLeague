@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System.Linq;
 
 namespace InLeague.IntegrationTests
 {
@@ -16,7 +14,6 @@ namespace InLeague.IntegrationTests
 
             builder.ConfigureServices(services =>
             {
-                // Unikalna nazwa bazy dla każdej instancji factory (izolacja testów)
                 var dbName = $"InLeagueTestDb_{System.Guid.NewGuid()}";
                 
                 services.AddDbContext<ApplicationDbContext>(options =>

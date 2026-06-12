@@ -1,5 +1,3 @@
-using System;
-
 namespace InLeague.Domain.Features.Leagues;
 
 public class LeagueAdmin

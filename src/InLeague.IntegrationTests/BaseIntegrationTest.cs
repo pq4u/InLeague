@@ -1,11 +1,7 @@
 using InLeague.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Xunit;
-using InLeague.Application.Features.Auth.DTOs;
 using System.Net.Http.Json;
 
 namespace InLeague.IntegrationTests
@@ -23,7 +19,6 @@ namespace InLeague.IntegrationTests
 
         protected async Task AuthenticateAsync(string email = "test@test.com", string password = "Password123!", bool asAdmin = true)
         {
-            // Register
             await _client.PostAsJsonAsync("/api/Auth/register", new RegisterRequestDto 
             { 
                 Email = email, 
@@ -46,7 +41,6 @@ namespace InLeague.IntegrationTests
                 }
             }
 
-            // Login to get token with roles
             var loginResponse = await _client.PostAsJsonAsync("/api/Auth/login", new LoginRequestDto 
             { 
                 Email = email, 

@@ -1,5 +1,3 @@
-using InLeague.Application.Features.Auth.DTOs;
-using Xunit;
 using FluentValidation.TestHelper;
 
 namespace InLeague.Tests.Validators;

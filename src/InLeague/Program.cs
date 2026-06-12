@@ -1,8 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using InLeague.Application.Common.Interfaces;
 using InLeague.Data;
-using InLeague.Infrastructure;
 using InLeague.Infrastructure.Common;
 using InLeague.Infrastructure.Data;
 using InLeague.Middleware;
@@ -16,7 +14,6 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- DbContext ---
 if (builder.Environment.IsEnvironment("Testing"))
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -29,14 +26,11 @@ else
                .UseSnakeCaseNamingConvention());
 }
 
-// --- FluentValidation ---
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestDtoValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 
-// --- Unit of Work ---
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// --- Serwisy ---
 builder.Services.AddScoped<ILeagueService, LeagueService>();
 builder.Services.AddScoped<IRaceService, RaceService>();
 builder.Services.AddScoped<IDriverService, DriverService>();
@@ -44,7 +38,6 @@ builder.Services.AddScoped<IKartService, KartService>();
 builder.Services.AddScoped<IRaceResultService, RaceResultService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// --- JWT ---
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("JWT Key is not configured");
 
@@ -68,7 +61,6 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 });
 
-// --- CORS ---
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
@@ -77,21 +69,19 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
-// --- Controllers ---
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
 
-// --- Swagger ---
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Karting League API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header. Wpisz: Bearer {token}",
+        Description = "JWT Authorization header. Bearer {token}",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -111,7 +101,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// --- Middleware pipeline ---
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
@@ -119,12 +108,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    // Auto-migracje przy starcie (dev only)
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
 
-    // Seed danych testowych
     await DataSeeder.SeedAsync(db);
 }
 

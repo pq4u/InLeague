@@ -1,9 +1,3 @@
-using InLeague.Application.Features.Auth.DTOs;
-using InLeague.Domain.Features.Users;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace InLeague.Application.Features.Auth.Mappings;
 
 public static class UserMappingExtensions

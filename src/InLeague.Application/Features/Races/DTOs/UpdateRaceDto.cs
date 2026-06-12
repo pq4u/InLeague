@@ -1,5 +1,3 @@
-using System;
-
 namespace InLeague.Application.Features.Races.DTOs;
 
 public class UpdateRaceDto

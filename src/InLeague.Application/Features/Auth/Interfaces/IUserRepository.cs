@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace InLeague.Application.Features.Auth.Interfaces;
 
 public interface IUserRepository : IRepository<User>

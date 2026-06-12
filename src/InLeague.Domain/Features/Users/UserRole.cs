@@ -1,5 +1,3 @@
-using System;
-
 namespace InLeague.Domain.Features.Users;
 
 public class UserRole

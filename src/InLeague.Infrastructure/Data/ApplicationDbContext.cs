@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace InLeague.Data;
 
 public class ApplicationDbContext : DbContext
@@ -19,27 +17,21 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // UserRole — klucz zlozony
         modelBuilder.Entity<UserRole>()
             .HasKey(ur => new { ur.UserId, ur.RoleId });
 
-        // LeagueAdmin — klucz zlozony
         modelBuilder.Entity<LeagueAdmin>()
             .HasKey(la => new { la.LeagueId, la.UserId });
 
-        // User.Email — unikalny
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email).IsUnique();
 
-        // Kart.Number — unikalny
         modelBuilder.Entity<Kart>()
             .HasIndex(k => k.Number).IsUnique();
 
-        // RaceResult — unikalny zawodnik w jednym wyscigu
         modelBuilder.Entity<RaceResult>()
             .HasIndex(r => new { r.RaceId, r.DriverId }).IsUnique();
 
-        // Seed rol
         var adminRoleId = Guid.Parse("11111111-1111-1111-1111-111111111111");
         var userRoleId  = Guid.Parse("22222222-2222-2222-2222-222222222222");
         modelBuilder.Entity<Role>().HasData(

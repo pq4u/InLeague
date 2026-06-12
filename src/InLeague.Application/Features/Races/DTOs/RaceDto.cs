@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using InLeague.Application.Features.RaceResults.DTOs;
-
 namespace InLeague.Application.Features.Races.DTOs;
 
 public class RaceDto

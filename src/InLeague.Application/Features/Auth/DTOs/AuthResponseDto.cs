@@ -1,5 +1,3 @@
-using System;
-
 namespace InLeague.Application.Features.Auth.DTOs;
 
 public class AuthResponseDto

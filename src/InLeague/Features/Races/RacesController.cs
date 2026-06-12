@@ -1,8 +1,5 @@
-using InLeague.Application.Features.Races.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace InLeague.Features.Races;
 

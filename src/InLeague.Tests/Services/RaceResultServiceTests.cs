@@ -1,10 +1,4 @@
-using InLeague.Application.Common.Interfaces;
-using InLeague.Application.Features.RaceResults.DTOs;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace InLeague.Tests.Services;
 

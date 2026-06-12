@@ -3,12 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.IO;
 using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace InLeague.Tests.Middleware;
 

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using InLeague.Application.Features.Races.DTOs;
-
 namespace InLeague.Application.Features.Leagues.DTOs;
 
 public class LeagueDto

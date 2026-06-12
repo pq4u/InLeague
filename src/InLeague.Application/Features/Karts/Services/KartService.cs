@@ -1,10 +1,3 @@
-using InLeague.Application.Common.Interfaces;
-using InLeague.Application.Features.Karts.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace InLeague.Application.Features.Karts.Services;
 
 public class KartService : IKartService
