@@ -3,12 +3,15 @@
   max-width: 1000px;
   margin: 0 auto;
 }
+
 .league-card {
   margin-bottom: 30px;
 }
+
 .spacer {
   flex: 1 1 auto;
 }
+
 .status-chip {
   padding: 2px 8px;
   border-radius: 12px;
@@ -16,29 +19,35 @@
   margin-left: 10px;
   background: #ccc;
 }
+
 .status-chip.active {
   background: #4caf50;
   color: white;
 }
+
 .description {
   margin-top: 20px;
   white-space: pre-wrap;
 }
+
 .races-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
 }
+
 .loading-container {
   display: flex;
   justify-content: center;
   padding: 50px;
 }
+
 .no-data-card {
   text-align: center;
   padding: 20px;
 }
+
 mat-table {
   width: 100%;
 }

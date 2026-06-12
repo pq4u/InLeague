@@ -16,7 +16,6 @@ export const routes: Routes = [
       import('./features/auth/register/register.component').then(m => m.RegisterComponent)
   },
 
-  // Ligi — publiczne
   {
     path: 'leagues',
     loadComponent: () =>
@@ -28,14 +27,12 @@ export const routes: Routes = [
       import('./features/leagues/league-detail/league-detail.component').then(m => m.LeagueDetailComponent)
   },
 
-  // Wyścigi — publiczne
   {
     path: 'leagues/:leagueId/races/:raceId',
     loadComponent: () =>
       import('./features/races/race-detail/race-detail.component').then(m => m.RaceDetailComponent)
   },
 
-  // Panel administracyjny — wymaga roli Admin
   {
     path: 'admin',
     canActivate: [authGuard, adminGuard],

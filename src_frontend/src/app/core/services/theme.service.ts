@@ -6,13 +6,11 @@ import { Injectable, signal, effect } from '@angular/core';
 export class ThemeService {
   private readonly THEME_KEY = 'inleague_theme';
   
-  // Sygnał przechowujący aktualny motyw: 'light' lub 'dark'
   theme = signal<'light' | 'dark'>('light');
 
   constructor() {
     this.initializeTheme();
     
-    // Automatycznie dodawaj/usuwaj klasę dark-theme z elementu html przy zmianie motywu
     effect(() => {
       const currentTheme = this.theme();
       if (typeof document !== 'undefined') {
@@ -37,7 +35,6 @@ export class ThemeService {
       if (savedTheme === 'light' || savedTheme === 'dark') {
         this.theme.set(savedTheme);
       } else {
-        // Jeśli nie zapisano wyboru, sprawdź preferencje systemowe
         const prefersDark = (typeof window !== 'undefined' && typeof window.matchMedia === 'function')
           ? window.matchMedia('(prefers-color-scheme: dark)').matches
           : false;

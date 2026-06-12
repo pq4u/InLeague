@@ -3,20 +3,26 @@
   max-width: 1000px;
   margin: 0 auto;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
+
 mat-table {
   width: 100%;
 }
+
 .loading, .error, .no-data {
   text-align: center;
   padding: 40px;
   color: #666;
 }
+
 .error { color: #f44336; }
+
 .active { color: #4caf50; font-weight: 500; }
+
 .inactive { color: #757575; }

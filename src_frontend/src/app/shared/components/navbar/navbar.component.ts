@@ -33,11 +33,14 @@ import { ThemeService } from '../../../core/services/theme.service';
   `,
   styles: [`
     .spacer { flex: 1 1 auto; }
+
     span[routerLink] { cursor: pointer; }
+
     .theme-toggle {
       margin-left: 8px;
       transition: transform 0.4s ease, background-color 0.3s ease;
     }
+    
     .theme-toggle:hover {
       transform: rotate(30deg);
       background-color: rgba(255, 255, 255, 0.1);

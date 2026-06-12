@@ -3,21 +3,26 @@
   max-width: 600px;
   margin: 0 auto;
 }
+
 .full-width {
   width: 100%;
   margin-bottom: 10px;
 }
+
 .row {
   display: flex;
   gap: 15px;
 }
+
 .half-width {
   flex: 1;
   margin-bottom: 10px;
 }
+
 .checkbox-container {
   margin-bottom: 20px;
 }
+
 .actions {
   display: flex;
   justify-content: flex-end;
