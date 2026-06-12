@@ -35,7 +35,7 @@ export class LeagueDetailComponent implements OnInit {
   auth = inject(AuthService);
 
   league: League | null = null;
-  displayedColumns = ['name', 'date', 'location', 'results', 'actions'];
+  displayedColumns = ['name', 'date', 'location', 'actions'];
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
